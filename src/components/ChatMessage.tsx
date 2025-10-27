@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import aiCharacter from "@/assets/ai-character.jpg";
 import VoiceControls from "./VoiceControls";
 
@@ -41,21 +39,13 @@ const ChatMessage = ({ role, content }: ChatMessageProps) => {
                   const isInline = !match;
                   
                   return !isInline ? (
-                    <SyntaxHighlighter
-                      style={atomOneDark}
-                      language={match[1]}
-                      PreTag="div"
-                      customStyle={{
-                        borderRadius: '0.5rem',
-                        padding: '1rem',
-                        margin: '0.5rem 0',
-                      }}
-                      {...props}
-                    >
-                      {String(children).replace(/\n$/, "")}
-                    </SyntaxHighlighter>
+                    <pre className="bg-gray-900 rounded-lg p-4 overflow-x-auto my-2">
+                      <code className={className} {...props}>
+                        {children}
+                      </code>
+                    </pre>
                   ) : (
-                    <code className={className} {...props}>
+                    <code className="bg-gray-800 px-1.5 py-0.5 rounded text-sm" {...props}>
                       {children}
                     </code>
                   );
