@@ -151,27 +151,29 @@ const ChatInterface = () => {
               className="text-center py-8"
             >
               <div className="inline-flex items-center gap-3 mb-4">
-                <motion.span
-                  animate={{ rotate: [0, 10, -10, 0] }}
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
+                  className="text-3xl"
                 >
-                  ⚡
-                </motion.span>
+                  🏗️
+                </motion.div>
                 <h2 className="text-3xl font-bold gradient-text glow-text">
-                  Enter the Crypt
+                  Explore Stacks Ecosystem
                 </h2>
-                <motion.span
-                  animate={{ rotate: [0, -10, 10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+                  className="text-3xl"
                 >
-                  👻
-                </motion.span>
+                  ₿
+                </motion.div>
               </div>
               <p className="text-foreground/80 mb-2 text-lg">
-                Choose your path through the <span className="text-primary font-semibold">haunted blockchain</span> 🎃
+                Choose a topic to learn about <span className="text-primary font-semibold">Bitcoin Layer 1</span>
               </p>
               <p className="text-sm text-accent">
-                🔊 Spectral voice narration on all responses
+                🔊 Voice narration available on all responses
               </p>
             </motion.div>
             <TopicCards onTopicClick={handleTopicClick} />
@@ -182,24 +184,24 @@ const ChatInterface = () => {
         ))}
         {isLoading && messages[messages.length - 1]?.role === "user" && (
           <div className="flex gap-4 mb-6">
-            <div className="w-12 h-12 rounded-full border-3 border-primary toxic-glow flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full border-3 border-primary brand-glow flex items-center justify-center">
               <Loader2 className="w-6 h-6 animate-spin text-primary" />
             </div>
-            <div className="bg-card/80 border-2 border-primary/40 rounded-2xl px-6 py-4 backdrop-blur-sm" style={{ boxShadow: "0 4px 15px hsl(25 100% 50% / 0.2)" }}>
-              <p className="text-foreground/80">Summoning knowledge from the crypt... 👻</p>
+            <div className="bg-card/80 border-2 border-primary/40 rounded-2xl px-6 py-4 backdrop-blur-sm brand-glow">
+              <p className="text-foreground/80">Analyzing blockchain data...</p>
             </div>
           </div>
         )}
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="border-t-2 border-primary/50 bg-card/70 backdrop-blur-md p-4" style={{ boxShadow: "0 -4px 20px hsl(25 100% 50% / 0.2)" }}>
+      <div className="border-t-2 border-primary/50 bg-card/70 backdrop-blur-md p-4 brand-glow">
         <div className="flex gap-2">
           <Textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask about DeFi, NFTs, GameFi, Memecoins... 👻"
+            placeholder="Ask about DeFi, NFTs, STX Stacking, sBTC..."
             className="resize-none bg-background border-2 border-primary/30 focus:border-primary focus:border-2 text-foreground placeholder:text-muted-foreground"
             rows={2}
           />
