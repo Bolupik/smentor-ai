@@ -7,51 +7,51 @@ interface TopicCardsProps {
 
 const topics = [
   {
-    icon: "👻",
+    icon: "🏗️",
     title: "Stacks Architecture",
     description: "Bitcoin-secured Layer 1 with smart contracts",
     prompt: "Explain the Stacks blockchain architecture and how it connects to Bitcoin"
   },
   {
-    icon: "💀",
+    icon: "💰",
     title: "DeFi Protocols",
-    description: "ALEX, Arkadiko, Velar - haunted halls of finance",
+    description: "ALEX, Arkadiko, Velar - decentralized finance",
     prompt: "What are the main DeFi protocols on Stacks and how do they work?"
   },
   {
-    icon: "🎃",
+    icon: "🎨",
     title: "NFTs & Collections",
-    description: "Digital spirits: Monkeys, Puppets & more",
+    description: "Digital collectibles: Monkeys, Puppets & more",
     prompt: "Tell me about NFTs on Stacks - marketplaces and top collections"
   },
   {
-    icon: "🔮",
+    icon: "🚀",
     title: "Memecoins",
-    description: "WELSH, RYDER, BOOM - the spooky speculation",
+    description: "WELSH, RYDER, BOOM - community tokens",
     prompt: "What memecoins exist on Stacks? How do I trade them safely?"
   },
   {
-    icon: "⚡",
+    icon: "🎮",
     title: "GameFi",
-    description: "Play-to-earn in the blockchain underworld",
+    description: "Play-to-earn blockchain gaming ecosystem",
     prompt: "Explain GameFi on Stacks - what gaming projects exist?"
   },
   {
-    icon: "🪙",
+    icon: "₿",
     title: "STX Stacking",
-    description: "Earn Bitcoin by stacking your ghostly tokens",
+    description: "Earn Bitcoin by stacking your STX tokens",
     prompt: "How does STX stacking work? How can I earn Bitcoin rewards?"
   },
   {
-    icon: "🧟",
+    icon: "🔗",
     title: "sBTC Integration",
-    description: "Unleash Bitcoin in DeFi with sBTC",
+    description: "Bitcoin integration in DeFi with sBTC",
     prompt: "What is sBTC and how will it change DeFi on Stacks?"
   },
   {
-    icon: "🕷️",
+    icon: "🔐",
     title: "Security & Wallets",
-    description: "Protect yourself from crypto ghouls",
+    description: "Best practices and wallet recommendations",
     prompt: "What are security best practices and which wallets should I use?"
   }
 ];
@@ -68,12 +68,8 @@ const TopicCards = ({ onTopicClick }: TopicCardsProps) => {
           whileHover={{ scale: 1.05, y: -5 }}
         >
           <Card 
-            className="cursor-pointer border-2 border-primary/30 hover:border-primary transition-all duration-300 bg-card/60 backdrop-blur-md hover:bg-card/80 group"
+            className="cursor-pointer border-2 border-primary/30 hover:border-primary transition-all duration-300 bg-card/60 backdrop-blur-md hover:bg-card/80 group brand-glow"
             onClick={() => onTopicClick(topic.prompt)}
-            style={{ 
-              boxShadow: "0 4px 20px hsl(25 100% 50% / 0.2)",
-              transition: "all 0.3s ease"
-            }}
           >
             <CardContent className="p-5">
               <motion.div 

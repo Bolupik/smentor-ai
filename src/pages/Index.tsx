@@ -21,25 +21,25 @@ const Index = () => {
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ duration: 0.8, type: "spring" }}
-              className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary animate-float toxic-glow"
+              className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary animate-float brand-glow"
             >
               <img 
                 src={aiCharacter} 
-                alt="Cyberpunk Halloween DeFi Guide" 
+                alt="Stacks DeFi AI Assistant" 
                 className="w-full h-full object-cover"
               />
             </motion.div>
             
             <div className="flex-1">
               <motion.h1 
-                className="text-4xl md:text-5xl font-bold gradient-text mb-2 flex items-center gap-3"
-                animate={{ textShadow: ["0 0 10px hsl(25 100% 55% / 0.5)", "0 0 20px hsl(25 100% 55% / 0.8)", "0 0 10px hsl(25 100% 55% / 0.5)"] }}
+                className="text-4xl md:text-5xl font-bold gradient-text mb-2"
+                animate={{ textShadow: ["0 0 10px hsl(14 100% 57% / 0.4)", "0 0 20px hsl(14 100% 57% / 0.6)", "0 0 10px hsl(14 100% 57% / 0.4)"] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                🎃 Stacks Crypto Crypt 👻
+                Stacks AI Assistant
               </motion.h1>
               <p className="text-foreground/90 text-lg">
-                Your <span className="text-primary glow-text font-semibold">cyberpunk specter</span> guide to DeFi, NFTs, GameFi & Memecoins ⚡
+                Your <span className="text-primary glow-text font-semibold">intelligent guide</span> to DeFi, NFTs, GameFi & More on Bitcoin Layer 1
               </p>
             </div>
           </div>

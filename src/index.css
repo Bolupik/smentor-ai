@@ -8,89 +8,88 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Halloween Cyberpunk Theme - Dark base with neon accents */
-    --background: 270 100% 2%;
-    --foreground: 45 100% 95%;
+    /* Stacks Blockchain Theme - Professional with orange/purple accent */
+    --background: 240 20% 7%;
+    --foreground: 0 0% 98%;
 
-    --card: 270 50% 6%;
-    --card-foreground: 45 100% 95%;
+    --card: 240 15% 10%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 270 50% 6%;
-    --popover-foreground: 45 100% 95%;
+    --popover: 240 15% 10%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Neon Orange - Primary Halloween color */
-    --primary: 25 100% 55%;
-    --primary-foreground: 270 100% 98%;
+    /* Stacks Orange - Primary brand color */
+    --primary: 14 100% 57%;
+    --primary-foreground: 0 0% 100%;
     
-    /* Toxic Green - Accent */
-    --primary-glow: 25 100% 65%;
-    --accent-glow: 120 100% 50%;
+    /* Orange variants */
+    --primary-glow: 14 100% 65%;
+    --accent-glow: 14 90% 50%;
 
-    /* Electric Purple - Secondary */
-    --secondary: 280 100% 55%;
-    --secondary-foreground: 45 100% 98%;
+    /* Deep Purple - Secondary */
+    --secondary: 265 70% 55%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 270 30% 15%;
-    --muted-foreground: 45 20% 65%;
+    --muted: 240 10% 20%;
+    --muted-foreground: 240 5% 65%;
 
-    /* Toxic Green Accent */
-    --accent: 120 100% 50%;
-    --accent-foreground: 270 100% 10%;
+    /* Purple Accent */
+    --accent: 265 70% 60%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 270 100% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 25 70% 30%;
-    --input: 270 40% 12%;
-    --ring: 25 100% 55%;
+    --border: 240 10% 25%;
+    --input: 240 15% 15%;
+    --ring: 14 100% 57%;
 
     --radius: 0.75rem;
 
-    /* Halloween Cyberpunk Gradients */
-    --gradient-cosmic: linear-gradient(135deg, hsl(270 100% 20%), hsl(280 100% 30%), hsl(25 100% 40%));
-    --gradient-halloween: linear-gradient(90deg, hsl(25 100% 55%), hsl(280 100% 55%), hsl(120 100% 50%));
-    --gradient-toxic: linear-gradient(135deg, hsl(120 100% 40% / 0.3), hsl(280 100% 40% / 0.3));
-    --gradient-glow: radial-gradient(circle at 50% 50%, hsl(25 100% 55% / 0.4), transparent 70%);
+    /* Stacks Brand Gradients */
+    --gradient-cosmic: linear-gradient(135deg, hsl(265 70% 25%), hsl(265 70% 35%), hsl(14 100% 45%));
+    --gradient-stacks: linear-gradient(90deg, hsl(14 100% 57%), hsl(265 70% 55%));
+    --gradient-subtle: linear-gradient(135deg, hsl(265 70% 20% / 0.3), hsl(14 100% 30% / 0.3));
+    --gradient-glow: radial-gradient(circle at 50% 50%, hsl(14 100% 57% / 0.3), transparent 70%);
     
     /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    --transition-glitch: all 0.1s steps(2);
     
-    /* Shadows with Halloween glow */
-    --shadow-glow: 0 0 30px hsl(25 100% 55% / 0.5), 0 0 60px hsl(120 100% 50% / 0.3);
-    --shadow-glow-lg: 0 0 40px hsl(25 100% 55% / 0.6), 0 0 80px hsl(280 100% 50% / 0.4);
-    --shadow-toxic: 0 0 20px hsl(120 100% 50% / 0.6), 0 0 40px hsl(120 100% 50% / 0.3);
+    /* Shadows with brand glow */
+    --shadow-glow: 0 0 30px hsl(14 100% 57% / 0.4), 0 0 60px hsl(265 70% 55% / 0.2);
+    --shadow-glow-lg: 0 0 40px hsl(14 100% 57% / 0.5), 0 0 80px hsl(265 70% 55% / 0.3);
+    --shadow-brand: 0 4px 20px hsl(14 100% 57% / 0.3);
   }
 
   .dark {
-    --background: 270 100% 2%;
-    --foreground: 45 100% 95%;
+    --background: 240 20% 7%;
+    --foreground: 0 0% 98%;
 
-    --card: 270 50% 6%;
-    --card-foreground: 45 100% 95%;
+    --card: 240 15% 10%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 270 50% 6%;
-    --popover-foreground: 45 100% 95%;
+    --popover: 240 15% 10%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 25 100% 55%;
-    --primary-foreground: 270 100% 98%;
+    --primary: 14 100% 57%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 280 100% 55%;
-    --secondary-foreground: 45 100% 98%;
+    --secondary: 265 70% 55%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 270 30% 15%;
-    --muted-foreground: 45 20% 65%;
+    --muted: 240 10% 20%;
+    --muted-foreground: 240 5% 65%;
 
-    --accent: 120 100% 50%;
-    --accent-foreground: 270 100% 10%;
+    --accent: 265 70% 60%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 270 100% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 25 70% 30%;
-    --input: 270 40% 12%;
-    --ring: 25 100% 55%;
+    --border: 240 10% 25%;
+    --input: 240 15% 15%;
+    --ring: 14 100% 57%;
   }
 }
 
@@ -101,9 +100,9 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    background: radial-gradient(circle at 20% 50%, hsl(25 100% 10% / 0.4), transparent 50%),
-                radial-gradient(circle at 80% 50%, hsl(120 100% 10% / 0.3), transparent 50%),
-                radial-gradient(circle at 50% 0%, hsl(280 100% 15% / 0.3), transparent 40%),
+    background: radial-gradient(circle at 20% 50%, hsl(14 100% 15% / 0.3), transparent 50%),
+                radial-gradient(circle at 80% 50%, hsl(265 70% 15% / 0.2), transparent 50%),
+                radial-gradient(circle at 50% 0%, hsl(240 20% 12% / 0.5), transparent 40%),
                 hsl(var(--background));
   }
 
@@ -116,10 +115,10 @@ All colors MUST be HSL.
 
   @keyframes pulse-glow {
     0%, 100% { 
-      box-shadow: 0 0 20px hsl(25 100% 55% / 0.5), 0 0 40px hsl(280 100% 50% / 0.3);
+      box-shadow: 0 0 20px hsl(14 100% 57% / 0.5), 0 0 40px hsl(265 70% 55% / 0.3);
     }
     50% { 
-      box-shadow: 0 0 40px hsl(25 100% 55% / 0.8), 0 0 80px hsl(120 100% 50% / 0.5);
+      box-shadow: 0 0 40px hsl(14 100% 57% / 0.7), 0 0 80px hsl(265 70% 55% / 0.4);
     }
   }
 
@@ -129,18 +128,6 @@ All colors MUST be HSL.
     100% { background-position: 0% 50%; }
   }
 
-  @keyframes glitch {
-    0%, 100% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-  }
-
-  @keyframes flicker {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
-  }
 
   .animate-float {
     animation: float 4s ease-in-out infinite;
@@ -150,12 +137,8 @@ All colors MUST be HSL.
     animation: pulse-glow 2.5s ease-in-out infinite;
   }
 
-  .animate-glitch {
-    animation: glitch 0.5s ease-in-out infinite;
-  }
-
   .gradient-text {
-    background: var(--gradient-halloween);
+    background: var(--gradient-stacks);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -164,12 +147,12 @@ All colors MUST be HSL.
   }
 
   .glow-text {
-    text-shadow: 0 0 10px hsl(25 100% 55% / 0.8),
-                 0 0 20px hsl(25 100% 55% / 0.5),
-                 0 0 30px hsl(25 100% 55% / 0.3);
+    text-shadow: 0 0 10px hsl(14 100% 57% / 0.6),
+                 0 0 20px hsl(14 100% 57% / 0.4),
+                 0 0 30px hsl(14 100% 57% / 0.2);
   }
 
-  .toxic-glow {
-    box-shadow: var(--shadow-toxic);
+  .brand-glow {
+    box-shadow: var(--shadow-brand);
   }
 }
