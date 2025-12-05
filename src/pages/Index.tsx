@@ -96,14 +96,27 @@ const Index = () => {
               />
             </motion.div>
 
-            {/* Title */}
+            {/* Title with typewriter effect */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
               className="text-5xl md:text-7xl font-extralight tracking-tight text-foreground mb-4 text-center"
             >
-              STACKS AI
+              {"STACKS AI".split("").map((char, index) => (
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{
+                    delay: 0.5 + index * 0.1,
+                    duration: 0.1,
+                  }}
+                  className="inline-block"
+                  style={{ minWidth: char === " " ? "0.3em" : "auto" }}
+                >
+                  {char}
+                </motion.span>
+              ))}
             </motion.h1>
 
             <motion.p
