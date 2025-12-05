@@ -66,7 +66,7 @@ const ChatMessage = ({ role, content }: ChatMessageProps) => {
       </div>
       {!isAssistant && (
         <div className="w-8 h-8 border border-foreground/20 flex items-center justify-center flex-shrink-0 bg-background">
-          <span className="text-sm">👤</span>
+          <span className="text-xs font-medium text-foreground">YOU</span>
         </div>
       )}
     </motion.div>
