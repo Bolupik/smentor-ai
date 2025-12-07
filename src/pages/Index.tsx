@@ -1,25 +1,26 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import aiCharacter from "@/assets/ai-character.jpg";
+import aiCharacter from "@/assets/ai-character.png";
 import ChatInterface from "@/components/ChatInterface";
+import { Play, Info } from "lucide-react";
 
 const pageVariants = {
-  initial: { opacity: 0, scale: 0.98 },
-  animate: { opacity: 1, scale: 1 },
-  exit: { opacity: 0, scale: 1.02 }
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 }
 };
 
 const pageTransition = {
   type: "tween" as const,
   ease: "easeInOut" as const,
-  duration: 0.4
+  duration: 0.5
 };
 
 const Index = () => {
   const [showChat, setShowChat] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background overflow-hidden">
       <AnimatePresence mode="wait">
         {!showChat ? (
           <motion.div
@@ -29,168 +30,193 @@ const Index = () => {
             animate="animate"
             exit="exit"
             transition={pageTransition}
-            className="flex-1 flex flex-col"
+            className="flex-1 flex flex-col relative"
           >
-            {/* Split Navigation Header */}
-            <motion.header
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="fixed top-0 left-0 right-0 z-50 px-6 py-6"
-          >
-            <div className="flex justify-between items-start">
-              <motion.span 
-                className="text-xs tracking-[0.3em] font-light text-foreground/80"
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.4 }}
+            {/* Netflix-style Full Screen Hero Background */}
+            <div className="absolute inset-0 z-0">
+              {/* Character as full background with Ken Burns effect */}
+              <motion.div
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 20, ease: "linear" }}
+                className="absolute inset-0"
               >
-                STACKS
-              </motion.span>
-              <motion.span 
-                className="text-xs tracking-[0.3em] font-light text-foreground/80"
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                BITCOIN
-              </motion.span>
-              <motion.span 
-                className="text-xs tracking-[0.3em] font-light text-foreground/80"
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.6 }}
-              >
-                LAYER
-              </motion.span>
-              <motion.span 
-                className="text-xs tracking-[0.3em] font-light text-foreground/80"
-                initial={{ x: 20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.7 }}
-              >
-                TWO
-              </motion.span>
+                <img 
+                  src={aiCharacter} 
+                  alt="Bear AI Assistant" 
+                  className="w-full h-full object-cover object-top"
+                />
+              </motion.div>
+              
+              {/* Gradient overlays for Netflix look */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent" />
+              <div className="absolute inset-0 netflix-vignette" />
+              <div className="absolute bottom-0 left-0 right-0 h-1/3 netflix-hero-glow" />
             </div>
-          </motion.header>
 
-          {/* Central Hero */}
-          <main className="flex-1 flex flex-col items-center justify-center px-6">
-            {/* AI Character Image */}
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.8, type: "spring" }}
-              className="relative mb-8"
+            {/* Top Navigation Bar */}
+            <motion.header
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative z-50 px-8 py-6"
             >
-              {/* Floating particles */}
-              {[...Array(8)].map((_, i) => (
+              <div className="flex items-center justify-between">
+                <motion.div 
+                  className="text-3xl font-bold tracking-tighter text-primary"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  STACKS
+                </motion.div>
+                <div className="flex items-center gap-8">
+                  <motion.span 
+                    className="text-sm font-medium text-foreground/80 hover:text-foreground cursor-pointer transition-colors"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6 }}
+                  >
+                    DeFi
+                  </motion.span>
+                  <motion.span 
+                    className="text-sm font-medium text-foreground/80 hover:text-foreground cursor-pointer transition-colors"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.7 }}
+                  >
+                    NFTs
+                  </motion.span>
+                  <motion.span 
+                    className="text-sm font-medium text-foreground/80 hover:text-foreground cursor-pointer transition-colors"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.8 }}
+                  >
+                    GameFi
+                  </motion.span>
+                  <motion.span 
+                    className="text-sm font-medium text-foreground/80 hover:text-foreground cursor-pointer transition-colors"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.9 }}
+                  >
+                    Bitcoin L2
+                  </motion.span>
+                </div>
+              </div>
+            </motion.header>
+
+            {/* Hero Content - Bottom Left like Netflix */}
+            <main className="relative z-10 flex-1 flex flex-col justify-end px-8 pb-32 md:pb-40">
+              <div className="max-w-2xl">
+                {/* Series badge */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="flex items-center gap-3 mb-4"
+                >
+                  <span className="text-primary font-bold text-lg tracking-wider">S</span>
+                  <span className="text-xs tracking-[0.3em] text-muted-foreground uppercase">Series</span>
+                </motion.div>
+
+                {/* Main Title */}
+                <motion.h1
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-foreground mb-6 leading-none"
+                >
+                  {"STACKS AI".split("").map((char, index) => (
+                    <motion.span
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: 0.7 + index * 0.05,
+                        duration: 0.4,
+                        ease: "easeOut",
+                      }}
+                      className="inline-block"
+                      style={{ minWidth: char === " " ? "0.25em" : "auto" }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </motion.h1>
+
+                {/* Description */}
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.2 }}
+                  className="text-lg md:text-xl text-foreground/80 mb-8 leading-relaxed max-w-xl"
+                >
+                  Your AI guide to the Stacks ecosystem. Learn DeFi, explore NFTs, master GameFi, and understand Bitcoin Layer 2 technology.
+                </motion.p>
+
+                {/* Netflix-style Buttons */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.4 }}
+                  className="flex items-center gap-4"
+                >
+                  <button
+                    onClick={() => setShowChat(true)}
+                    className="group flex items-center gap-3 px-8 py-4 bg-foreground text-background font-bold text-lg rounded-sm hover:bg-foreground/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  >
+                    <Play className="w-6 h-6 fill-current" />
+                    <span>Start Learning</span>
+                  </button>
+                  <button className="group flex items-center gap-3 px-8 py-4 bg-muted/80 text-foreground font-bold text-lg rounded-sm hover:bg-muted transition-all duration-300 backdrop-blur-sm">
+                    <Info className="w-6 h-6" />
+                    <span>More Info</span>
+                  </button>
+                </motion.div>
+
+                {/* Maturity rating badge */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 1.6 }}
+                  className="flex items-center gap-4 mt-8"
+                >
+                  <span className="px-2 py-1 border border-muted-foreground/50 text-xs text-muted-foreground">
+                    BITCOIN L2
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    2024 • DeFi Education • Interactive AI
+                  </span>
+                </motion.div>
+              </div>
+            </main>
+
+            {/* Animated particles/sparkles */}
+            <div className="absolute inset-0 pointer-events-none z-20">
+              {[...Array(20)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute w-1 h-1 rounded-full bg-primary/40"
+                  className="absolute w-1 h-1 rounded-full bg-primary/30"
                   style={{
-                    left: `${20 + Math.random() * 60}%`,
-                    top: `${20 + Math.random() * 60}%`,
+                    left: `${5 + Math.random() * 90}%`,
+                    top: `${10 + Math.random() * 80}%`,
                   }}
                   animate={{
-                    y: [0, -15, 0],
-                    x: [0, Math.random() > 0.5 ? 8 : -8, 0],
-                    opacity: [0.2, 0.6, 0.2],
-                    scale: [1, 1.5, 1],
+                    opacity: [0, 0.6, 0],
+                    scale: [0, 1.5, 0],
                   }}
                   transition={{
                     duration: 3 + Math.random() * 2,
                     repeat: Infinity,
-                    delay: i * 0.4,
+                    delay: i * 0.3,
                     ease: "easeInOut",
                   }}
                 />
               ))}
-              
-              {/* Larger floating orbs */}
-              {[...Array(4)].map((_, i) => (
-                <motion.div
-                  key={`orb-${i}`}
-                  className="absolute w-2 h-2 rounded-full bg-primary/20 blur-sm"
-                  style={{
-                    left: `${10 + i * 25}%`,
-                    top: `${15 + (i % 2) * 70}%`,
-                  }}
-                  animate={{
-                    y: [0, -20, 0],
-                    opacity: [0.1, 0.4, 0.1],
-                  }}
-                  transition={{
-                    duration: 4 + i,
-                    repeat: Infinity,
-                    delay: i * 0.8,
-                    ease: "easeInOut",
-                  }}
-                />
-              ))}
-              
-              <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border border-border/50 shadow-lg relative z-10">
-                <img 
-                  src={aiCharacter} 
-                  alt="Stacks DeFi AI Assistant" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {/* Subtle reflection effect */}
-              <div 
-                className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-32 h-8 bg-gradient-to-b from-foreground/5 to-transparent blur-lg"
-              />
-            </motion.div>
-
-            {/* Title with typewriter effect */}
-            <motion.h1
-              initial={{ opacity: 1 }}
-              animate={{ opacity: 1 }}
-              className="text-5xl md:text-7xl font-extralight tracking-tight text-foreground mb-4 text-center"
-            >
-              {"STACKS AI".split("").map((char, index) => (
-                <motion.span
-                  key={index}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{
-                    delay: 0.5 + index * 0.1,
-                    duration: 0.1,
-                  }}
-                  className="inline-block"
-                  style={{ minWidth: char === " " ? "0.3em" : "auto" }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-              className="text-sm tracking-[0.2em] text-muted-foreground mb-16"
-            >
-              DEFI • NFTS • GAMEFI • BITCOIN L2
-            </motion.p>
-          </main>
-
-            {/* Explore Button */}
-            <motion.footer
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.6 }}
-              className="fixed bottom-8 left-1/2 -translate-x-1/2"
-            >
-              <button
-                onClick={() => setShowChat(true)}
-                className="group flex items-center gap-4 px-8 py-3 border border-foreground/20 hover:border-foreground/40 bg-background/80 backdrop-blur-sm transition-all duration-300"
-              >
-                <span className="w-3 h-3 bg-foreground" />
-                <span className="text-sm tracking-[0.3em] font-light">EXPLORE</span>
-                <span className="text-muted-foreground group-hover:translate-x-1 transition-transform">···</span>
-              </button>
-            </motion.footer>
+            </div>
           </motion.div>
         ) : (
           <motion.div
@@ -203,23 +229,29 @@ const Index = () => {
             className="flex-1 flex flex-col"
           >
             {/* Chat Header */}
-            <header className="border-b border-border/50 bg-background/80 backdrop-blur-sm">
+            <header className="border-b border-border/50 bg-background/95 backdrop-blur-sm">
               <div className="container mx-auto px-4 py-4 flex items-center justify-between">
                 <button
                   onClick={() => setShowChat(false)}
-                  className="text-xs tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                 >
-                  ← BACK
+                  <span>←</span>
+                  <span>Back</span>
                 </button>
-                <h1 className="text-sm tracking-[0.3em] font-light">STACKS AI</h1>
-                <div className="w-12" />
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-primary">
+                    <img src={aiCharacter} alt="AI" className="w-full h-full object-cover" />
+                  </div>
+                  <h1 className="text-lg font-bold tracking-tight text-primary">STACKS AI</h1>
+                </div>
+                <div className="w-16" />
               </div>
             </header>
 
             {/* Chat Interface */}
             <main
               className="flex-1 container mx-auto max-w-5xl flex flex-col"
-              style={{ height: "calc(100vh - 60px)" }}
+              style={{ height: "calc(100vh - 65px)" }}
             >
               <ChatInterface />
             </main>

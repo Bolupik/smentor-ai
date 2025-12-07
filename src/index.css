@@ -8,89 +8,83 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Dark Black & Blue Theme */
-    --background: 220 20% 4%;
-    --foreground: 210 20% 92%;
+    /* Netflix-inspired Dark Theme with Red Accent */
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
 
-    --card: 220 25% 7%;
-    --card-foreground: 210 20% 92%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 220 25% 7%;
-    --popover-foreground: 210 20% 92%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
 
-    /* Deep Blue - Primary */
-    --primary: 215 80% 55%;
+    /* Netflix Red - Primary */
+    --primary: 0 85% 50%;
     --primary-foreground: 0 0% 100%;
     
-    /* Blue variants */
-    --primary-glow: 215 90% 65%;
-    --accent-glow: 220 70% 45%;
+    /* Red variants */
+    --primary-glow: 0 90% 60%;
+    --accent-glow: 0 70% 40%;
 
-    /* Dark Blue - Secondary */
-    --secondary: 220 30% 12%;
-    --secondary-foreground: 210 20% 92%;
+    /* Dark Gray - Secondary */
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 220 25% 10%;
-    --muted-foreground: 215 15% 55%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 55%;
 
-    /* Cyan Accent */
-    --accent: 200 80% 50%;
-    --accent-foreground: 0 0% 100%;
+    /* Gold/Amber Accent */
+    --accent: 35 90% 55%;
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 20% 15%;
-    --input: 220 25% 10%;
-    --ring: 215 80% 55%;
+    --border: 0 0% 18%;
+    --input: 0 0% 12%;
+    --ring: 0 85% 50%;
 
     --radius: 0.25rem;
 
-    /* Dark Gradients */
-    --gradient-cosmic: linear-gradient(135deg, hsl(220 25% 5%), hsl(220 30% 10%));
-    --gradient-stacks: linear-gradient(90deg, hsl(215 80% 55%), hsl(200 80% 50%));
-    --gradient-subtle: linear-gradient(180deg, hsl(220 20% 4%), hsl(220 25% 6%));
-    --gradient-glow: radial-gradient(circle at 50% 50%, hsl(215 80% 55% / 0.15), transparent 70%);
+    /* Cinematic Gradients */
+    --gradient-cosmic: linear-gradient(135deg, hsl(0 0% 3%), hsl(0 0% 8%));
+    --gradient-stacks: linear-gradient(90deg, hsl(0 85% 50%), hsl(35 90% 55%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 5%), hsl(0 0% 3%));
+    --gradient-glow: radial-gradient(circle at 50% 50%, hsl(0 85% 50% / 0.15), transparent 70%);
+    --gradient-hero: radial-gradient(ellipse 80% 50% at 50% 80%, hsl(0 85% 50% / 0.2), transparent);
+    --gradient-vignette: radial-gradient(ellipse at center, transparent 40%, hsl(0 0% 0% / 0.8) 100%);
     
     /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     
-    /* Dark Shadows */
-    --shadow-glow: 0 4px 20px hsl(215 80% 55% / 0.15);
-    --shadow-glow-lg: 0 8px 40px hsl(215 80% 55% / 0.2);
-    --shadow-brand: 0 2px 10px hsl(220 20% 0% / 0.5);
+    /* Cinematic Shadows */
+    --shadow-glow: 0 4px 20px hsl(0 85% 50% / 0.2);
+    --shadow-glow-lg: 0 8px 40px hsl(0 85% 50% / 0.25);
+    --shadow-brand: 0 2px 10px hsl(0 0% 0% / 0.8);
+    --shadow-cinematic: 0 25px 50px -12px hsl(0 0% 0% / 0.9);
   }
 
   .dark {
-    /* Same as root - already dark theme */
-    --background: 220 20% 4%;
-    --foreground: 210 20% 92%;
-
-    --card: 220 25% 7%;
-    --card-foreground: 210 20% 92%;
-
-    --popover: 220 25% 7%;
-    --popover-foreground: 210 20% 92%;
-
-    --primary: 215 80% 55%;
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 0 85% 50%;
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 220 30% 12%;
-    --secondary-foreground: 210 20% 92%;
-
-    --muted: 220 25% 10%;
-    --muted-foreground: 215 15% 55%;
-
-    --accent: 200 80% 50%;
-    --accent-foreground: 0 0% 100%;
-
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 55%;
+    --accent: 35 90% 55%;
+    --accent-foreground: 0 0% 0%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 220 20% 15%;
-    --input: 220 25% 10%;
-    --ring: 215 80% 55%;
+    --border: 0 0% 18%;
+    --input: 0 0% 12%;
+    --ring: 0 85% 50%;
   }
 }
 
@@ -113,10 +107,10 @@ All colors MUST be HSL.
 
   @keyframes pulse-glow {
     0%, 100% { 
-      box-shadow: 0 0 20px hsl(215 80% 55% / 0.4), 0 0 40px hsl(200 80% 50% / 0.2);
+      box-shadow: 0 0 20px hsl(0 85% 50% / 0.4), 0 0 40px hsl(0 85% 50% / 0.2);
     }
     50% { 
-      box-shadow: 0 0 40px hsl(215 80% 55% / 0.6), 0 0 80px hsl(200 80% 50% / 0.3);
+      box-shadow: 0 0 40px hsl(0 85% 50% / 0.6), 0 0 80px hsl(0 85% 50% / 0.3);
     }
   }
 
@@ -124,6 +118,21 @@ All colors MUST be HSL.
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+  }
+
+  @keyframes ken-burns {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.1) translate(-2%, -1%); }
+  }
+
+  @keyframes fade-up {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
   }
 
 
@@ -145,12 +154,34 @@ All colors MUST be HSL.
   }
 
   .glow-text {
-    text-shadow: 0 0 10px hsl(215 80% 55% / 0.6),
-                 0 0 20px hsl(215 80% 55% / 0.4),
-                 0 0 30px hsl(215 80% 55% / 0.2);
+    text-shadow: 0 0 10px hsl(0 85% 50% / 0.6),
+                 0 0 20px hsl(0 85% 50% / 0.4),
+                 0 0 30px hsl(0 85% 50% / 0.2);
   }
 
   .brand-glow {
     box-shadow: var(--shadow-brand);
+  }
+
+  .animate-ken-burns {
+    animation: ken-burns 20s ease-out forwards;
+  }
+
+  .animate-fade-up {
+    animation: fade-up 1s ease-out forwards;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent, hsl(0 0% 100% / 0.1), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  .netflix-vignette {
+    background: var(--gradient-vignette);
+  }
+
+  .netflix-hero-glow {
+    background: var(--gradient-hero);
   }
 }
