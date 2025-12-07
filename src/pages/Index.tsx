@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import aiCharacter from "@/assets/ai-character.png";
 import ChatInterface from "@/components/ChatInterface";
+import PreviewModal from "@/components/PreviewModal";
 import { Play, Info } from "lucide-react";
 
 const pageVariants = {
@@ -18,6 +19,7 @@ const pageTransition = {
 
 const Index = () => {
   const [showChat, setShowChat] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col bg-background overflow-hidden">
@@ -171,7 +173,10 @@ const Index = () => {
                     <Play className="w-6 h-6 fill-current" />
                     <span>Start Learning</span>
                   </button>
-                  <button className="group flex items-center gap-3 px-8 py-4 bg-muted/80 text-foreground font-bold text-lg rounded-sm hover:bg-muted transition-all duration-300 backdrop-blur-sm">
+                  <button 
+                    onClick={() => setShowPreview(true)}
+                    className="group flex items-center gap-3 px-8 py-4 bg-muted/80 text-foreground font-bold text-lg rounded-sm hover:bg-muted transition-all duration-300 backdrop-blur-sm"
+                  >
                     <Info className="w-6 h-6" />
                     <span>More Info</span>
                   </button>
@@ -228,36 +233,59 @@ const Index = () => {
             transition={pageTransition}
             className="flex-1 flex flex-col"
           >
-            {/* Chat Header */}
-            <header className="border-b border-border/50 bg-background/95 backdrop-blur-sm">
-              <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-                <button
+            {/* Chat Header - Netflix style */}
+            <motion.header 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="border-b border-border/30 bg-background/95 backdrop-blur-md sticky top-0 z-50"
+            >
+              <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+                <motion.button
+                  whileHover={{ x: -5 }}
                   onClick={() => setShowChat(false)}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                 >
-                  <span>←</span>
+                  <span className="text-lg">←</span>
                   <span>Back</span>
-                </button>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-primary">
+                </motion.button>
+                <motion.div 
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  className="flex items-center gap-3"
+                >
+                  <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary shadow-lg shadow-primary/20">
                     <img src={aiCharacter} alt="AI" className="w-full h-full object-cover" />
                   </div>
-                  <h1 className="text-lg font-bold tracking-tight text-primary">STACKS AI</h1>
-                </div>
+                  <div>
+                    <h1 className="text-lg font-bold tracking-tight text-primary">STACKS AI</h1>
+                    <p className="text-xs text-muted-foreground">Your DeFi Guide</p>
+                  </div>
+                </motion.div>
                 <div className="w-16" />
               </div>
-            </header>
+            </motion.header>
 
             {/* Chat Interface */}
             <main
-              className="flex-1 container mx-auto max-w-5xl flex flex-col"
-              style={{ height: "calc(100vh - 65px)" }}
+              className="flex-1 flex flex-col"
+              style={{ height: "calc(100vh - 73px)" }}
             >
               <ChatInterface />
             </main>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Preview Modal */}
+      <PreviewModal
+        isOpen={showPreview}
+        onClose={() => setShowPreview(false)}
+        onStartLearning={() => {
+          setShowPreview(false);
+          setShowChat(true);
+        }}
+      />
     </div>
   );
 };
