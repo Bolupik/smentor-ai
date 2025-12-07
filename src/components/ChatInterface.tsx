@@ -6,6 +6,7 @@ import { Send, Loader2, Sparkles } from "lucide-react";
 import { useToast } from "./ui/use-toast";
 import ChatMessage from "./ChatMessage";
 import TopicCards from "./TopicCards";
+import aiCharacter from "@/assets/ai-character.png";
 
 interface Message {
   role: "user" | "assistant";
@@ -141,24 +142,51 @@ const ChatInterface = () => {
   };
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
+    <div className="flex flex-col h-full bg-gradient-to-b from-background to-card/30">
+      <div className="flex-1 overflow-y-auto px-4 md:px-8 py-6 space-y-4">
         {messages.length === 0 && (
           <>
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center py-12"
             >
-              <h2 className="text-2xl font-light tracking-wide text-foreground mb-2">
-                EXPLORE STACKS
-              </h2>
-              <p className="text-xs tracking-[0.2em] text-muted-foreground mb-1">
-                SELECT A TOPIC TO BEGIN
-              </p>
-              <p className="text-[10px] text-muted-foreground/60">
+              {/* AI Character avatar */}
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.2, type: "spring" }}
+                className="w-24 h-24 mx-auto mb-6 rounded-full overflow-hidden border-2 border-primary shadow-lg shadow-primary/20"
+              >
+                <img src={aiCharacter} alt="Stacks AI" className="w-full h-full object-cover" />
+              </motion.div>
+              
+              <motion.h2
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="text-3xl md:text-4xl font-black tracking-tight text-foreground mb-3"
+              >
+                What would you like to learn?
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="text-muted-foreground mb-2 max-w-md mx-auto"
+              >
+                Select a topic below or ask me anything about the Stacks ecosystem
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="text-xs text-primary/70 flex items-center justify-center gap-2"
+              >
+                <Sparkles className="w-3 h-3" />
                 Voice narration available on all responses
-              </p>
+              </motion.p>
             </motion.div>
             <TopicCards onTopicClick={handleTopicClick} />
           </>
@@ -167,43 +195,54 @@ const ChatInterface = () => {
           <ChatMessage key={idx} role={msg.role} content={msg.content} />
         ))}
         {isLoading && messages[messages.length - 1]?.role === "user" && (
-          <div className="flex gap-3 mb-6">
-            <div className="w-8 h-8 border border-border flex items-center justify-center">
-              <Loader2 className="w-4 h-4 animate-spin text-foreground" />
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex gap-4 mb-6"
+          >
+            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+              <img src={aiCharacter} alt="AI" className="w-full h-full object-cover" />
             </div>
-            <div className="bg-card border border-border px-4 py-3">
-              <p className="text-xs text-muted-foreground tracking-wide">ANALYZING...</p>
+            <div className="bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl px-5 py-4 shadow-lg">
+              <div className="flex items-center gap-3">
+                <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                <span className="text-sm text-muted-foreground">Thinking...</span>
+              </div>
             </div>
-          </div>
+          </motion.div>
         )}
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="border-t border-border bg-background/80 backdrop-blur-sm p-4">
-        <div className="flex gap-2">
+      {/* Input area - Netflix style */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="border-t border-border/30 bg-background/95 backdrop-blur-md p-4 md:p-6"
+      >
+        <div className="max-w-4xl mx-auto flex gap-3">
           <Textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Ask about DeFi, NFTs, STX Stacking, sBTC..."
-            className="resize-none bg-background border border-border focus:border-foreground/30 text-foreground placeholder:text-muted-foreground text-sm"
-            rows={2}
+            className="resize-none bg-muted/50 border border-border/50 focus:border-primary/50 text-foreground placeholder:text-muted-foreground rounded-xl text-base min-h-[56px] py-4"
+            rows={1}
           />
           <Button
             onClick={() => handleSend()}
             disabled={!input.trim() || isLoading}
-            size="icon"
-            variant="outline"
-            className="h-auto aspect-square border-foreground/20 hover:bg-foreground hover:text-background transition-colors"
+            size="lg"
+            className="h-auto px-6 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/20"
           >
             {isLoading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <Loader2 className="w-5 h-5 animate-spin" />
             ) : (
-              <Send className="w-4 h-4" />
+              <Send className="w-5 h-5" />
             )}
           </Button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
