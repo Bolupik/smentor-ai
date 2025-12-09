@@ -22,13 +22,23 @@ serve(async (req) => {
       throw new Error('ELEVENLABS_API_KEY not configured');
     }
 
-    // Log key info for debugging (only first/last few chars for security)
-    const keyPreview = ELEVENLABS_API_KEY.length > 8 
-      ? `${ELEVENLABS_API_KEY.substring(0, 4)}...${ELEVENLABS_API_KEY.substring(ELEVENLABS_API_KEY.length - 4)} (length: ${ELEVENLABS_API_KEY.length})`
-      : `(length: ${ELEVENLABS_API_KEY.length})`;
-    console.log('Using ElevenLabs API key:', keyPreview);
+    // Truncate text to prevent memory issues (max ~3000 chars for safety)
+    const MAX_TEXT_LENGTH = 3000;
+    let processedText = text;
+    if (text.length > MAX_TEXT_LENGTH) {
+      // Truncate at sentence boundary if possible
+      const truncated = text.substring(0, MAX_TEXT_LENGTH);
+      const lastPeriod = truncated.lastIndexOf('.');
+      const lastQuestion = truncated.lastIndexOf('?');
+      const lastExclaim = truncated.lastIndexOf('!');
+      const cutPoint = Math.max(lastPeriod, lastQuestion, lastExclaim);
+      processedText = cutPoint > MAX_TEXT_LENGTH * 0.5 
+        ? truncated.substring(0, cutPoint + 1) 
+        : truncated + '...';
+      console.log(`Text truncated from ${text.length} to ${processedText.length} chars`);
+    }
 
-    console.log('Generating speech for text length:', text.length);
+    console.log('Generating speech for text length:', processedText.length);
 
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${voice}`,
@@ -40,7 +50,7 @@ serve(async (req) => {
           'xi-api-key': ELEVENLABS_API_KEY,
         },
         body: JSON.stringify({
-          text,
+          text: processedText,
           model_id: 'eleven_turbo_v2_5',
           voice_settings: {
             stability: 0.5,
