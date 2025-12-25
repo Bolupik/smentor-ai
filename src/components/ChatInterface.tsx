@@ -189,24 +189,24 @@ const ChatInterface = () => {
                 transition={{ delay: 0.2, type: "spring" }}
                 className="w-24 h-24 mx-auto mb-6 rounded-full overflow-hidden border-2 border-primary shadow-lg shadow-primary/20"
               >
-                <img src={aiCharacter} alt="Stacks AI" className="w-full h-full object-cover" />
+                <img src={aiCharacter} alt="The Architect" className="w-full h-full object-cover" />
               </motion.div>
               
               <motion.h2
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="text-3xl md:text-4xl font-black tracking-tight text-foreground mb-3"
+                className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-3"
               >
-                What would you like to learn?
+                What knowledge do you seek?
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="text-muted-foreground mb-2 max-w-md mx-auto"
+                className="text-muted-foreground mb-2 max-w-lg mx-auto font-light"
               >
-                Select a topic below or ask me anything about the Stacks ecosystem
+                Select a domain of study below, or pose any inquiry regarding the Stacks ecosystem
               </motion.p>
               <motion.p
                 initial={{ opacity: 0 }}
@@ -215,7 +215,7 @@ const ChatInterface = () => {
                 className="text-xs text-primary/70 flex items-center justify-center gap-2"
               >
                 <Sparkles className="w-3 h-3" />
-                Voice narration available on all responses
+                Voice narration accompanies all discourse
               </motion.p>
             </motion.div>
             <TopicCards 
