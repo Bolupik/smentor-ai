@@ -1,15 +1,16 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import aiCharacter from "@/assets/ai-character.png";
 import ChatInterface from "@/components/ChatInterface";
 import PreviewModal from "@/components/PreviewModal";
 import SearchBar from "@/components/SearchBar";
 import UserMenu from "@/components/UserMenu";
+import StacksQuiz from "@/components/StacksQuiz";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTopicProgressDB } from "@/hooks/useTopicProgressDB";
 import { topicsList } from "@/components/TopicCards";
-import { Play, Info } from "lucide-react";
+import { Play, Info, BookOpen } from "lucide-react";
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -26,14 +27,97 @@ const pageTransition = {
 const Index = () => {
   const [showChat, setShowChat] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const { exploredCount } = useTopicProgressDB();
+
+  // Redirect to auth if not logged in
+  useEffect(() => {
+    if (!isLoading && !user) {
+      navigate("/auth");
+    }
+  }, [user, isLoading, navigate]);
+
+  // Show loading while checking auth
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="flex flex-col items-center gap-4"
+        >
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            className="w-12 h-12 border-2 border-primary border-t-transparent rounded-full"
+          />
+          <p className="text-muted-foreground text-sm font-light tracking-wide">Initializing the Archive...</p>
+        </motion.div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-background overflow-hidden">
       <AnimatePresence mode="wait">
-        {!showChat ? (
+        {showQuiz ? (
+          <motion.div
+            key="quiz"
+            variants={pageVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={pageTransition}
+            className="flex-1 flex flex-col"
+          >
+            {/* Quiz Header */}
+            <motion.header
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="border-b border-border/30 bg-background/95 backdrop-blur-md sticky top-0 z-50"
+            >
+              <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+                <motion.button
+                  whileHover={{ x: -5 }}
+                  onClick={() => setShowQuiz(false)}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
+                >
+                  <span className="text-lg">←</span>
+                  <span>Return</span>
+                </motion.button>
+                <div className="flex items-center gap-3">
+                  <BookOpen className="w-5 h-5 text-primary" />
+                  <h1 className="text-lg font-semibold tracking-tight">Knowledge Assessment</h1>
+                </div>
+                <UserMenu exploredCount={exploredCount} totalTopics={topicsList.length} />
+              </div>
+            </motion.header>
+
+            {/* Quiz Content */}
+            <main className="flex-1 flex flex-col items-center justify-center p-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="w-full max-w-2xl"
+              >
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl font-bold text-foreground mb-2">Stacks Ecosystem Proficiency</h2>
+                  <p className="text-muted-foreground">
+                    A technical assessment to evaluate your comprehension of core architectural principles.
+                  </p>
+                </div>
+                <StacksQuiz />
+              </motion.div>
+            </main>
+          </motion.div>
+        ) : !showChat ? (
           <motion.div
             key="landing"
             variants={pageVariants}
@@ -43,9 +127,8 @@ const Index = () => {
             transition={pageTransition}
             className="flex-1 flex flex-col relative"
           >
-            {/* Netflix-style Full Screen Hero Background */}
+            {/* Full Screen Hero Background */}
             <div className="absolute inset-0 z-0">
-              {/* Character as full background with Ken Burns effect */}
               <motion.div
                 initial={{ scale: 1.1 }}
                 animate={{ scale: 1 }}
@@ -54,19 +137,18 @@ const Index = () => {
               >
                 <img 
                   src={aiCharacter} 
-                  alt="Bear AI Assistant" 
+                  alt="The Architect" 
                   className="w-full h-full object-cover object-top"
                 />
               </motion.div>
               
-              {/* Gradient overlays for Netflix look */}
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent" />
               <div className="absolute inset-0 netflix-vignette" />
               <div className="absolute bottom-0 left-0 right-0 h-1/3 netflix-hero-glow" />
             </div>
 
-            {/* Top Navigation Bar */}
+            {/* Navigation */}
             <motion.header
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -80,7 +162,7 @@ const Index = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5 }}
                 >
-                  STACKS
+                  THE ARCHITECT
                 </motion.div>
                 <div className="flex items-center gap-6">
                   <motion.span 
@@ -89,7 +171,7 @@ const Index = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6 }}
                   >
-                    DeFi
+                    Protocols
                   </motion.span>
                   <motion.span 
                     className="text-sm font-medium text-foreground/80 hover:text-foreground cursor-pointer transition-colors hidden md:inline"
@@ -97,7 +179,7 @@ const Index = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.7 }}
                   >
-                    NFTs
+                    Architecture
                   </motion.span>
                   <motion.span 
                     className="text-sm font-medium text-foreground/80 hover:text-foreground cursor-pointer transition-colors hidden md:inline"
@@ -105,7 +187,7 @@ const Index = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8 }}
                   >
-                    GameFi
+                    Clarity
                   </motion.span>
                   <motion.span 
                     className="text-sm font-medium text-foreground/80 hover:text-foreground cursor-pointer transition-colors hidden lg:inline"
@@ -133,7 +215,7 @@ const Index = () => {
               </div>
             </motion.header>
 
-            {/* Hero Content - Bottom Left like Netflix */}
+            {/* Hero Content */}
             <main className="relative z-10 flex-1 flex flex-col justify-end px-8 pb-32 md:pb-40">
               <div className="max-w-2xl">
                 {/* Series badge */}
@@ -143,24 +225,24 @@ const Index = () => {
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="flex items-center gap-3 mb-4"
                 >
-                  <span className="text-primary font-bold text-lg tracking-wider">S</span>
-                  <span className="text-xs tracking-[0.3em] text-muted-foreground uppercase">Series</span>
+                  <span className="text-primary font-bold text-lg tracking-wider">◆</span>
+                  <span className="text-xs tracking-[0.3em] text-muted-foreground uppercase">Masterclass</span>
                 </motion.div>
 
-                {/* Main Title */}
+                {/* Title */}
                 <motion.h1
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.5 }}
                   className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-foreground mb-6 leading-none"
                 >
-                  {"STACKS AI".split("").map((char, index) => (
+                  {"THE ARCHITECT".split("").map((char, index) => (
                     <motion.span
                       key={index}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{
-                        delay: 0.7 + index * 0.05,
+                        delay: 0.7 + index * 0.04,
                         duration: 0.4,
                         ease: "easeOut",
                       }}
@@ -172,40 +254,47 @@ const Index = () => {
                   ))}
                 </motion.h1>
 
-                {/* Description */}
+                {/* Description - Elegant prose */}
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 1.2 }}
-                  className="text-lg md:text-xl text-foreground/80 mb-8 leading-relaxed max-w-xl"
+                  className="text-lg md:text-xl text-foreground/80 mb-8 leading-relaxed max-w-xl font-light"
                 >
-                  Your AI guide to the Stacks ecosystem. Learn DeFi, explore NFTs, master GameFi, and understand Bitcoin Layer 2 technology.
+                  A comprehensive discourse on the Stacks paradigm. Herein lies the knowledge to navigate decentralized finance, comprehend Bitcoin's programmable layer, and master the elegant precision of Clarity.
                 </motion.p>
 
-                {/* Netflix-style Buttons */}
+                {/* Buttons */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 1.4 }}
-                  className="flex items-center gap-4"
+                  className="flex items-center gap-4 flex-wrap"
                 >
                   <button
                     onClick={() => setShowChat(true)}
-                    className="group flex items-center gap-3 px-8 py-4 bg-foreground text-background font-bold text-lg rounded-sm hover:bg-foreground/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                    className="group flex items-center gap-3 px-8 py-4 bg-foreground text-background font-semibold text-lg rounded-sm hover:bg-foreground/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
                     <Play className="w-6 h-6 fill-current" />
-                    <span>Start Learning</span>
+                    <span>Begin Session</span>
+                  </button>
+                  <button
+                    onClick={() => setShowQuiz(true)}
+                    className="group flex items-center gap-3 px-8 py-4 bg-primary/20 text-primary border border-primary/50 font-semibold text-lg rounded-sm hover:bg-primary/30 transition-all duration-300"
+                  >
+                    <BookOpen className="w-5 h-5" />
+                    <span>Assessment</span>
                   </button>
                   <button 
                     onClick={() => setShowPreview(true)}
-                    className="group flex items-center gap-3 px-8 py-4 bg-muted/80 text-foreground font-bold text-lg rounded-sm hover:bg-muted transition-all duration-300 backdrop-blur-sm"
+                    className="group flex items-center gap-3 px-8 py-4 bg-muted/80 text-foreground font-semibold text-lg rounded-sm hover:bg-muted transition-all duration-300 backdrop-blur-sm"
                   >
                     <Info className="w-6 h-6" />
-                    <span>More Info</span>
+                    <span>Overview</span>
                   </button>
                 </motion.div>
 
-                {/* Maturity rating badge */}
+                {/* Badge */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -215,31 +304,31 @@ const Index = () => {
                   <span className="px-2 py-1 border border-muted-foreground/50 text-xs text-muted-foreground">
                     BITCOIN L2
                   </span>
-                  <span className="text-sm text-muted-foreground">
-                    2024 • DeFi Education • Interactive AI
+                  <span className="text-sm text-muted-foreground font-light">
+                    2025 • Technical Mastery • Guided Instruction
                   </span>
                 </motion.div>
               </div>
             </main>
 
-            {/* Animated particles/sparkles */}
+            {/* Subtle particles */}
             <div className="absolute inset-0 pointer-events-none z-20">
-              {[...Array(20)].map((_, i) => (
+              {[...Array(15)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute w-1 h-1 rounded-full bg-primary/30"
+                  className="absolute w-1 h-1 rounded-full bg-primary/20"
                   style={{
                     left: `${5 + Math.random() * 90}%`,
                     top: `${10 + Math.random() * 80}%`,
                   }}
                   animate={{
-                    opacity: [0, 0.6, 0],
-                    scale: [0, 1.5, 0],
+                    opacity: [0, 0.4, 0],
+                    scale: [0, 1.2, 0],
                   }}
                   transition={{
-                    duration: 3 + Math.random() * 2,
+                    duration: 4 + Math.random() * 2,
                     repeat: Infinity,
-                    delay: i * 0.3,
+                    delay: i * 0.4,
                     ease: "easeInOut",
                   }}
                 />
@@ -256,7 +345,7 @@ const Index = () => {
             transition={pageTransition}
             className="flex-1 flex flex-col"
           >
-            {/* Chat Header - Netflix style */}
+            {/* Chat Header */}
             <motion.header 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -270,7 +359,7 @@ const Index = () => {
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                 >
                   <span className="text-lg">←</span>
-                  <span>Back</span>
+                  <span>Return</span>
                 </motion.button>
                 <motion.div 
                   initial={{ scale: 0.9 }}
@@ -278,19 +367,21 @@ const Index = () => {
                   className="flex items-center gap-3"
                 >
                   <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary shadow-lg shadow-primary/20">
-                    <img src={aiCharacter} alt="AI" className="w-full h-full object-cover" />
+                    <img src={aiCharacter} alt="The Architect" className="w-full h-full object-cover" />
                   </div>
                   <div>
-                    <h1 className="text-lg font-bold tracking-tight text-primary">STACKS AI</h1>
-                    <p className="text-xs text-muted-foreground">Your DeFi Guide</p>
+                    <h1 className="text-lg font-bold tracking-tight text-primary">THE ARCHITECT</h1>
+                    <p className="text-xs text-muted-foreground">Your Guide to Mastery</p>
                   </div>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
+                  className="flex items-center gap-4"
                 >
                   <SearchBar variant="chat" />
+                  <UserMenu exploredCount={exploredCount} totalTopics={topicsList.length} />
                 </motion.div>
               </div>
             </motion.header>
