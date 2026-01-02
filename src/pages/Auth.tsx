@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Eye, EyeOff, LogIn, UserPlus, ArrowLeft } from "lucide-react";
+import { Eye, EyeOff, LogIn, UserPlus, ArrowLeft, User } from "lucide-react";
 import aiCharacter from "@/assets/ai-character.png";
 import { z } from "zod";
 
@@ -24,8 +24,39 @@ const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string; username?: string }>({});
+  const [isGuestLoading, setIsGuestLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  const handleGuestLogin = async () => {
+    setIsGuestLoading(true);
+    try {
+      const { error } = await supabase.auth.signInAnonymously();
+      
+      if (error) {
+        toast({
+          title: "Guest access failed",
+          description: error.message,
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Welcome, Guest",
+        description: "You may explore freely. Create an account to preserve your progress.",
+      });
+      navigate("/");
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsGuestLoading(false);
+    }
+  };
 
   const validateForm = () => {
     try {
@@ -287,8 +318,47 @@ const Auth = () => {
             </Button>
           </form>
 
+          {/* Divider */}
+          <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-border"></div>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">Or</span>
+            </div>
+          </div>
+
+          {/* Guest Login */}
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleGuestLogin}
+            disabled={isGuestLoading}
+            className="w-full py-6 text-lg font-medium border-border hover:bg-muted/50"
+          >
+            {isGuestLoading ? (
+              <span className="flex items-center gap-2">
+                <motion.span
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  className="w-5 h-5 border-2 border-foreground border-t-transparent rounded-full"
+                />
+                Entering as Guest...
+              </span>
+            ) : (
+              <span className="flex items-center gap-2">
+                <User className="w-5 h-5" />
+                Continue as Guest
+              </span>
+            )}
+          </Button>
+
+          <p className="text-center text-xs text-muted-foreground mt-4">
+            Guest progress is temporary. Create an account to persist your journey.
+          </p>
+
           {/* Footer text */}
-          <p className="text-center text-sm text-muted-foreground mt-8">
+          <p className="text-center text-sm text-muted-foreground mt-6">
             {isLogin ? "Don't have an account? " : "Already have an account? "}
             <button
               onClick={() => setIsLogin(!isLogin)}
